@@ -41,10 +41,13 @@ const Header = () => {
   return (
     <>
       <header
-        className={`header left-0 top-0 z-40 flex w-full items-center bg-white pl-8  dark:bg-black ${
+        className={`header left-0 top-0 z-40 flex w-full items-center bg-white pl-8 dark:bg-black ${
           sticky
-            ? " shadow-sticky fixed  z-[9999] !bg-opacity-80 backdrop-blur-sm transition dark:shadow-black"
+            ? "shadow-sticky fixed z-[9999] !bg-opacity-80 backdrop-blur-sm transition dark:shadow-black"
             : "absolute bg-transparent"
+        } ${
+          // Applying different padding based on screen size
+          "md:-py-8 lg:-py-8 xl:-py-8 2xl:-py-8 sm:-py-4 py-2"
         }`}
       >
         {" "}
@@ -74,7 +77,8 @@ const Header = () => {
                       />
                     </svg>
                   </div>
-                  <h1 className="  p-2 text-xl font-bold text-black dark:text-white">
+                  <div className="block py-2 text-white">.</div>
+                  <h1 className="hidden p-2 text-xl font-bold text-black dark:text-white lg:block">
                     RestoreU
                   </h1>
                 </Link>
@@ -120,7 +124,7 @@ const Header = () => {
                           {menuItem.path ? (
                             <Link
                               href={menuItem.path}
-                              className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
+                              className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0  ${
                                 usePathName === menuItem.path
                                   ? "text-primary dark:text-white"
                                   : "text-dark hover:text-primary dark:text-white/70 dark:hover:text-white"
@@ -132,7 +136,7 @@ const Header = () => {
                             <>
                               <p
                                 // onClick={() => handleSubmenu(index)}
-                                className="text-dark flex cursor-pointer items-center justify-between py-2 text-base group-hover:text-primary dark:text-white/70 dark:group-hover:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
+                                className="text-dark flex cursor-pointer items-center justify-between py-0 text-base group-hover:text-primary dark:text-white/70 dark:group-hover:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
                               >
                                 {menuItem.title}
                                 <span className="pl-3">
@@ -161,7 +165,7 @@ const Header = () => {
                                       //submenuItem.path
                                       href={"#"}
                                       key={index}
-                                      className="text-dark block rounded py-2.5 text-sm hover:text-primary dark:text-white/70 dark:hover:text-white lg:px-3"
+                                      className="text-dark block rounded py-0 text-sm hover:text-primary dark:text-white/70 dark:hover:text-white lg:px-3"
                                     >
                                       {submenuItem.title}
                                     </Link>
@@ -177,7 +181,7 @@ const Header = () => {
                 <div className="flex items-center justify-end pr-16 lg:pr-0">
                   <Link
                     href="/signin"
-                    className="xs:bg-primary xs:text-white px-7 py-3 font-medium  hover:opacity-70 dark:text-white sm:bg-primary sm:text-black sm:text-white md:block md:bg-transparent xl:bg-transparent"
+                    className=" xs:bg-primary px-7 py-3 font-medium text-white hover:opacity-70  dark:text-white sm:bg-primary md:block md:bg-transparent  md:text-black lg:text-black xl:bg-transparent"
                   >
                     Connexion
                   </Link>
