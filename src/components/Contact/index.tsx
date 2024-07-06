@@ -54,7 +54,7 @@ const Contact = () => {
                       </label>
                       <input
                         type="email"
-                        placeholder="Entrer votre email"
+                        placeholder="Entrez votre email"
                         className="text-body-color dark:text-body-color-dark dark:shadow-two w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
@@ -70,7 +70,7 @@ const Contact = () => {
                       <textarea
                         name="message"
                         rows={5}
-                        placeholder="Entrer votre Message"
+                        placeholder="Entrez votre Message"
                         className="text-body-color dark:text-body-color-dark dark:shadow-two w-full resize-none rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       ></textarea>
                     </div>

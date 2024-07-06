@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   // Sticky Navbar
-  const [sticky, setSticky] = useState(false);
+  const [sticky, setSticky] = useState(true);
   const handleStickyNavbar = () => {
     if (window.scrollY >= 0) {
       setSticky(true);
@@ -61,7 +61,7 @@ const Header = () => {
                     sticky ? "py-5 lg:py-2" : "py-4"
                   } `}
                 >
-                  <div className="absolute -left-6  ">
+                  <div className="-ml-12 hidden lg:block  ">
                     <svg
                       width="40"
                       height="40"
@@ -77,8 +77,11 @@ const Header = () => {
                       />
                     </svg>
                   </div>
-                  <div className="block py-2 text-white">.</div>
-                  <h1 className="hidden p-2 text-xl font-bold text-black dark:text-white lg:block">
+                  {/*  */}
+                  <div className="ml-15 block px-5 py-2 text-white dark:text-black">
+                    .
+                  </div>
+                  <h1 className=" -ml-25 py-2 text-xl font-bold text-black dark:text-white lg:block">
                     RestoreU
                   </h1>
                 </Link>
@@ -109,7 +112,7 @@ const Header = () => {
                   </button>
                   <nav
                     id="navbarCollapse"
-                    className={`border-body-color/50 dark:border-body-color/20 dark:bg-dark navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] bg-white px-6 py-4 duration-300 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+                    className={`border-body-color/50 dark:border-body-color/20 dark:bg-dark navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] bg-white px-6 py-4 duration-300 dark:bg-black lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                       navbarOpen
                         ? "visibility top-full opacity-100"
                         : "invisible top-[120%] opacity-0"
@@ -181,7 +184,7 @@ const Header = () => {
                 <div className="flex items-center justify-end pr-16 lg:pr-0">
                   <Link
                     href="/signin"
-                    className=" xs:bg-primary px-7 py-3 font-medium text-white hover:opacity-70  dark:text-white sm:bg-primary md:block md:bg-transparent  md:text-black lg:text-black xl:bg-transparent"
+                    className=" bg-primary px-4 py-3 font-medium text-white hover:opacity-70  dark:text-white sm:bg-primary md:block md:bg-transparent  md:text-black lg:text-black xl:bg-transparent"
                   >
                     Connexion
                   </Link>

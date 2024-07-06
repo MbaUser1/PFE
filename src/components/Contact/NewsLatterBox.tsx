@@ -18,13 +18,13 @@ const NewsLatterBox = () => {
         <input
           type="text"
           name="name"
-          placeholder="Entrer votre nom"
+          placeholder="Entrez votre nom"
           className="text-body-color dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
         />
         <input
           type="email"
           name="email"
-          placeholder="Entrer votre email"
+          placeholder="Entrez votre email"
           className="text-body-color dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
         />
         <input

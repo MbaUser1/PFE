@@ -10,7 +10,7 @@ const Abonnement = () => {
   return (
     <section
       id="pricing"
-      className="bg-gray-light relative z-10 px-3 py-10  md:py-20 lg:py-25"
+      className="bg-gray-light relative z-10 px-3 py-10  dark:bg-black md:py-20 lg:py-25"
     >
       <div className="container">
         <SectionTitle

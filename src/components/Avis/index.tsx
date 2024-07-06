@@ -8,8 +8,8 @@ const AvisData: Aviss[] = [
     name: "Fokam David",
     designation: "Utilisateur",
     content:
-      "Nos membres sont tellement impressionnés. C'est intuitif. C'est propre. C'est sans distraction. Si vous construisez une communauté.",
-    image: "/images/Avis/auteur.jpg",
+      "C'est un vrai plaisir d'utiliser cette plateforme. Pas de distractions inutiles, juste les fonctionnalités dont on a besoin. ",
+    image: "/images/Avis/auteur1.jpg",
     star: 5,
   },
   {
@@ -17,8 +17,8 @@ const AvisData: Aviss[] = [
     name: "Tchatchu Ezekiel",
     designation: "Utilisateur",
     content:
-      "Nos membres sont tellement impressionnés. C'est intuitif. C'est propre. C'est sans distraction. Si vous construisez une communauté.",
-    image: "/images/Avis/auteur.jpg",
+      "J'ai essayé et je suis tellement impressionné. C'est intuitif. C'est propre. C'est sans distraction. Si vous construisez une communauté.",
+    image: "/images/Avis/auteur21.jpg",
     star: 5,
   },
   {
@@ -34,7 +34,7 @@ const AvisData: Aviss[] = [
 
 const Avis = () => {
   return (
-    <section className="bg-gray-light relative z-10 py-10  md:py-20 lg:py-25">
+    <section className="bg-gray-light relative z-10 py-10 dark:bg-black md:py-20 lg:py-25">
       <div className="container">
         <SectionTitle
           title="Avis des utilisateurs"
