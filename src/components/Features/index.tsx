@@ -7,7 +7,7 @@ const Features = () => {
     <>
       <section
         id="features"
-        className="bg-white px-4 py-10 dark:bg-[#181c24] md:py-20 lg:py-25"
+        className="bg-white px-4 pb-10 pt-1 dark:bg-[#181c24] md:py-10 lg:py-15"
       >
         <div className="container">
           <SectionTitle

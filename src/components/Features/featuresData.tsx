@@ -4,11 +4,17 @@ const featuresData: Feature[] = [
   {
     id: 1,
     icon: (
-      <svg width="40" height="40" viewBox="0 0 384 512" className="fill-current">
-        <path 
-          
-          d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
-        <path opacity="0.6" d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"/>
+      <svg
+        width="40"
+        height="40"
+        viewBox="0 0 384 512"
+        className="fill-current"
+      >
+        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+        <path
+          opacity="0.6"
+          d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"
+        />
       </svg>
     ),
     title: "Déclarez un document perdu",
@@ -18,14 +24,18 @@ const featuresData: Feature[] = [
   {
     id: 1,
     icon: (
-      <svg width="40" height="41" viewBox="0 0 384 512" className="fill-current">
-       
-        <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"/>
+      <svg
+        width="40"
+        height="41"
+        viewBox="0 0 384 512"
+        className="fill-current"
+      >
+        <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
       </svg>
     ),
     title: "Déclarez un document trouvé",
     paragraph:
-      "Remplissez le formulaire de déclaration en donnant un maximum de détails (sur le lieu de perte, le type de l’objet, sa description) pour aider l’algorithme à l’identifier rapidement",
+      "Remplissez le formulaire de déclaration en donnant un maximum de détails (le type de document, une photo) pour aider l’algorithme à l’identifier rapidement",
   },
   {
     id: 1,
@@ -40,7 +50,7 @@ const featuresData: Feature[] = [
     ),
     title: "Récupérez-le !",
     paragraph:
-      "Dès que vous êtes authentifié, vous recevez les informations pour passer le récupérer ou vous faire livrer. Pensez à bien communiquer le numéro de référence trouvé",
+      "Dès que vous êtes authentifié, vous recevez les informations pour passer le récupérer dans un de nos points de depôt.",
   },
 ];
 export default featuresData;

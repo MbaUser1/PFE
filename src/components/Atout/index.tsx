@@ -7,7 +7,7 @@ const Atouts = () => {
     <>
       <section
         id="atout"
-        className="bg-gray-light px-4 py-10 dark:bg-black md:py-20 lg:py-25"
+        className="bg-gray-light px-4 py-15 dark:bg-black md:py-25 lg:py-30"
       >
         <div className="container">
           <SectionTitle title="Nos Atouts" paragraph="" center mb="50px" />

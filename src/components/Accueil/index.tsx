@@ -5,34 +5,34 @@ const Accueil = () => {
     <>
       <section
         id="home"
-        className="relative z-10 min-h-screen overflow-hidden bg-white pb-16 pt-[120px] dark:bg-black md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="relative z-10 min-h-screen overflow-hidden bg-white pb-16 pt-[120px] dark:bg-black md:pb-[100px] md:pt-[150px] xl:pb-[140px] xl:pt-[180px] 2xl:pb-[180px] 2xl:pt-[210px]"
       >
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full">
               <div className="mx-auto max-w-[800px] text-center">
-                <h1 className="mb-8 mt-4 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+                <h1 className="mb-6 mt-4 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                   Bienvenue sur RestoreU,la référence !
                 </h1>
-                <p className="text-body-color dark:text-body-color-dark mb-12 text-base !leading-relaxed sm:text-lg md:text-xl">
-                  Vous avez egarés un document( CNI, Passeport, Récépissé,
-                  Permis ou autres ) ? Vous ne savez pas quoi faire ? Pas
-                  inquietude !! Nous sommes là pour vous. Essayez notre solution
-                  et obversez la magie opérer, nous nous engageons à retrouver
+                <p className="text-body-color dark:text-body-color-dark mb-2 text-base !leading-relaxed sm:mb-10 sm:text-lg md:mb-10 md:text-xl">
+                  Vous avez perdus ou trouvés un document( CNI, Passeport,
+                  Récépissé, Permis ou autres ) ? Vous ne savez pas quoi faire ?
+                  Pas inquietude !! Nous sommes là pour vous. Essayez notre
+                  solution en le déclarant, nous nous engageons à retrouver
                   votre document le plut tôt !
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
                     href="/signin"
-                    className="rounded-sm bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
+                    className="rounded-xl bg-primary py-4 pl-7 pr-9 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
                   >
-                    🔥 Essayer
+                    🔥 Perdu
                   </Link>
                   <Link
                     href="/signin"
                     className="inline-block rounded-sm bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
                   >
-                    👑 Premium
+                    👑 Trouvé
                   </Link>
                 </div>
               </div>
