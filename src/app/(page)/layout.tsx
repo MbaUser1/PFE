@@ -26,7 +26,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex min-h-screen flex-col">
             <Header1 />
-            <main className="flex-grow">{children}</main>
+            <main className="w-full">{children}</main>
             <Footer />
             <ScrollToTop />
           </div>
