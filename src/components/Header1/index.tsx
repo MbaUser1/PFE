@@ -91,7 +91,7 @@ const Header = () => {
                     onClick={navbarToggleHandler}
                     id="navbarToggler"
                     aria-label="Mobile Menu"
-                    className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
+                    className="absolute right-2 top-1/2 block translate-y-[-50%] rounded-lg  py-[6px] ring-primary focus:ring-2 lg:hidden"
                   >
                     <span
                       className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
@@ -183,7 +183,7 @@ const Header = () => {
                 <div className="flex items-center justify-end pr-16 lg:pr-0">
                   <Link
                     href="/signin"
-                    className=" bg-primary px-4 py-3 font-medium text-white hover:opacity-70  dark:text-white sm:bg-primary md:block md:bg-transparent  md:text-black lg:text-black xl:bg-transparent"
+                    className="rounded-lg bg-primary px-4 py-3 font-medium text-white hover:opacity-70  dark:text-white sm:bg-primary md:block md:bg-transparent  md:text-black lg:text-black xl:bg-transparent"
                   >
                     Connexion
                   </Link>
