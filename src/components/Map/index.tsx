@@ -118,7 +118,7 @@ const Map = () => {
   }, []);
 
   return (
-    <section className=" xs:px-4 relative z-10 px-10 py-16 dark:bg-[#181c24] md:px-4 md:py-20 lg:px-4 lg:py-28">
+    <section className=" relative z-10 px-5 py-16 dark:bg-[#181c24] md:px-4 md:py-20 lg:px-4 lg:py-28">
       <div className="container">
         <SectionTitle
           title="Localisation"

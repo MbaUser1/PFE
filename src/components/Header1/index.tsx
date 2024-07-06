@@ -58,10 +58,15 @@ const Header = () => {
                 <Link
                   href="/"
                   className={`header-logo flex w-full items-start ${
-                    sticky ? "py-5 lg:py-2" : "py-4"
-                  } `}
+                    sticky ? "py-5 lg:py-2" : " py-4"
+                  }`}
                 >
-                  <div className="-ml-12 hidden lg:block  ">
+                  <h1
+                    className={`-ml-12 py-2 text-xl font-bold text-black dark:text-white ${sticky ? "" : "lg:hidden"}`}
+                  >
+                    RestoreU
+                  </h1>
+                  <div className="ml-2 hidden lg:block">
                     <svg
                       width="40"
                       height="40"
@@ -77,15 +82,9 @@ const Header = () => {
                       />
                     </svg>
                   </div>
-                  {/*  */}
-                  <div className="ml-15 block px-5 py-2 text-white dark:text-black">
-                    .
-                  </div>
-                  <h1 className=" -ml-25 py-2 text-xl font-bold text-black dark:text-white lg:block">
-                    RestoreU
-                  </h1>
                 </Link>
               </div>
+
               <div className="xl:mr-300 flex w-full items-center justify-between px-4">
                 <div>
                   <button

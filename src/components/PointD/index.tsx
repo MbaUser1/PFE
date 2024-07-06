@@ -6,7 +6,7 @@ const PointD = () => {
   return (
     <section
       id="depot"
-      className="bg-gray-light  px-10 py-10 dark:bg-black md:py-20 lg:py-25"
+      className="bg-gray-light px-5 py-10 dark:bg-black md:py-20 lg:py-25"
     >
       <div className="container">
         <SectionTitle
