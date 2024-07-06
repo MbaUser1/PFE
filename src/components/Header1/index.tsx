@@ -177,7 +177,7 @@ const Header = () => {
                 <div className="flex items-center justify-end pr-16 lg:pr-0">
                   <Link
                     href="/signin"
-                    className="xs:bg-primary px-7 py-3 font-medium  hover:opacity-70 dark:text-white sm:bg-primary sm:text-black md:block md:bg-transparent xl:bg-transparent"
+                    className="xs:bg-primary xs:text-white px-7 py-3 font-medium  hover:opacity-70 dark:text-white sm:bg-primary sm:text-black sm:text-white md:block md:bg-transparent xl:bg-transparent"
                   >
                     Connexion
                   </Link>

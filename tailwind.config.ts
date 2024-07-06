@@ -10,6 +10,10 @@ const config: Config = {
   ],
   darkMode: "class",
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+    },
     fontFamily: {
       satoshi: ["Satoshi", "sans-serif"],
     },
