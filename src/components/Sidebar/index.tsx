@@ -79,7 +79,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <Link href="/signaler/egaree">
+        <Link href="/home/signaler/egaree">
           <button className="flex h-[48px] w-full items-center justify-center gap-2 rounded-full border-2  border-solid border-sky-500 px-5 py-8 ">
             <FontAwesomeIcon icon={faBox} className="text-white" />
             <div className="text-white">Signaler un document</div>
@@ -111,11 +111,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
               <li>
                 <Link
-                  href="/dashboard"
+                  href="/home"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    (pathname === "/dashboard" ||
-                      pathname.includes("dashboard")) &&
-                    "bg-graydark dark:bg-meta-4"
+                    pathname === "/home" && "bg-graydark dark:bg-meta-4"
                   }`}
                 >
                   <FontAwesomeIcon icon={faHouse} />
@@ -128,9 +126,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Calendar --> */}
               <li>
                 <Link
-                  href="/recherche"
+                  href="/home/recherche"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/recherche") &&
+                    pathname.includes("/home/recherche") &&
                     "bg-graydark dark:bg-meta-4"
                   }`}
                 >
@@ -150,10 +148,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   return (
                     <React.Fragment>
                       <Link
-                        href="#"
+                        href="/home/pieces"
                         className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (pathname === "/forms" ||
-                            pathname.includes("forms")) &&
+                          (pathname === "/home/pieces" ||
+                            pathname.includes("/home/pieces")) &&
                           "bg-graydark dark:bg-meta-4"
                         }`}
                         onClick={(e) => {
@@ -192,24 +190,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                           <li>
                             <Link
-                              href="/forms/form-elements"
+                              href="/home/pieces/egarees"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/forms/form-elements" &&
+                                pathname === "/home/pieces/egarees" &&
                                 "text-white"
                               }`}
                             >
-                              Voir liste
+                              Egarés
                             </Link>
                           </li>
                           <li>
                             <Link
-                              href="/forms/form-layout"
+                              href="/home/pieces/trouvees"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/forms/form-layout" &&
+                                pathname === "/home/pieces/trouvees" &&
                                 "text-white"
                               } `}
                             >
-                              Ajouter
+                              Trouvés
                             </Link>
                           </li>
                         </ul>
@@ -224,9 +222,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Settings --> */}
               <li>
                 <Link
-                  href="/settings"
+                  href="/home/settings"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/settings") &&
+                    pathname.includes("/home/settings") &&
                     "bg-graydark dark:bg-meta-4"
                   }`}
                 >
@@ -264,9 +262,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Calendar --> */}
               <li>
                 <Link
-                  href="/FAQs"
+                  href="/home/FAQs"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/FAQs") && "bg-graydark dark:bg-meta-4"
+                    pathname.includes("/home/FAQs") &&
+                    "bg-graydark dark:bg-meta-4"
                   }`}
                 >
                   <FontAwesomeIcon icon={faQuestionCircle} />

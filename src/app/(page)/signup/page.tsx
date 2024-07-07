@@ -22,7 +22,6 @@ const SignupPage = () => {
     email: string;
     telephone: number;
     password: string;
-
     sexe: string;
     // Add other form fields as needed (e.g., name)
   }

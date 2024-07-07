@@ -24,7 +24,6 @@ const SigninPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(data: LoginProps) {
-    console.log(data);
     try {
       setLoading(true);
       console.log("Attempting to sign in with credentials:", data);
@@ -43,7 +42,7 @@ const SigninPage: React.FC = () => {
         // Sign-in was successful
         toast.success("Login Successful");
         reset();
-        router.push("/dashboard");
+        router.push("/home");
       }
     } catch (error) {
       setLoading(false);

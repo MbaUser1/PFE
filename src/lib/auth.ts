@@ -1,10 +1,39 @@
 import bcrypt from "bcrypt";
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import db from "@/lib/db";
+
+////////////////////////////////
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      nom?: string;
+      prenom?: string;
+      telephone?: string;
+    } & DefaultSession["user"];
+  }
+  interface JWT {
+    id: string;
+    nom?: string;
+    prenom?: string;
+    telephone?: string;
+  }
+}
+interface CustomUser {
+  id: string;
+  email: string;
+  motDePasseHache: string;
+  nom?: string;
+  prenom?: string;
+  telephone?: string;
+}
+
+//----------------------------------------------------------------
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db),
@@ -41,7 +70,7 @@ export const authOptions: AuthOptions = {
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.motDePasseHache
+          user.motDePasseHache,
         );
 
         if (!isCorrectPassword) {
@@ -56,4 +85,31 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  ////////////////////////////////
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        const customUser = user as CustomUser;
+        token.id = customUser.id;
+        token.nom = customUser.nom;
+        token.prenom = customUser.prenom;
+        token.telephone = customUser.telephone;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.nom = token.nom as string;
+        session.user.prenom = token.prenom as string;
+        session.user.telephone = token.telephone as string;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/signin",
+    error: "/signin",
+  },
+  ////////////////////////////////
 };

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+
 import React from "react";
 import UpgradeToPremium from "@/components/UpgradeToPremium";
 
@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 const BasicChartPage: React.FC = () => {
   return (
     <>
-      <DefaultLayout>
-        <UpgradeToPremium />
-      </DefaultLayout>
+      <UpgradeToPremium />
     </>
   );
 };
