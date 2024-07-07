@@ -27,7 +27,7 @@ const AvisData: Aviss[] = [
     designation: "Utilisateur",
     content:
       "Nos membres sont tellement impressionnés. C'est intuitif. C'est propre. C'est sans distraction. Si vous construisez une communauté.",
-    image: "/images/Avis/auteur.jpg",
+    image: "/images/Avis/auteur3.jpeg",
     star: 5,
   },
 ];

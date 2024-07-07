@@ -26,6 +26,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex min-h-screen flex-col">
             <Header1 />
+            <Toaster />
             <main className="w-full">{children}</main>
             <Footer />
             <ScrollToTop />
@@ -37,3 +38,4 @@ export default function RootLayout({
 }
 
 import { Providers } from "./providers";
+import { Toaster } from "react-hot-toast";

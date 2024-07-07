@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Enum for user roles
+enum UserRole {
+  administrateur
+  point_depot
+  utilisateur
+}
+enum Deposer {
+  o
+  n
+  r
+  
+}
+enum TypeDeclaration {
+  trouve
+  egare
+}
+
+model Utilisateur {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  nom             String?
+  prenom          String?
+  email           String?  @unique
+  image           String?
+  telephone       String
+  motDePasseHache String
+  motDePasse      String? //unhashed pass
+  role            UserRole @default(utilisateur) // Default role is USER
+  numero_cni String?
+  sexe String?
+  dateCreation    DateTime @default(now())
+  dateModif       DateTime @updatedAt
+  isPremium       Boolean  @default(false)
+  isVerifiedNum   Boolean? @default(false)
+  otp             String?
+  Declaration Declaration[]
+  Lieu_depot Lieu_depot[]
+  Payment         Payment[]
+  Message         Message[]
+}
+
+model Payment {
+  userUuid  String   @id @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  montant   Float
+  monnaie   String
+  statut    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user Utilisateur @relation(fields: [userId], references: [id])
+}
+model Message {
+  id  String   @id @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  message   String
+  statut    String
+  createdAt DateTime @default(now())
+  user Utilisateur @relation(fields: [userId], references: [id])
+}
+
+model Lieu_depot{
+  id String   @id @default(auto()) @map("_id") @db.ObjectId
+  nom String 
+  institution String
+  telephone String
+  longitude String?
+  lagitude String?
+  arrondissement String
+  user Utilisateur @relation(fields: [gerantId], references: [id])
+  gerantId String @db.ObjectId
+
+}
+
+model Declaration{
+  id String   @id @default(auto()) @map("_id") @db.ObjectId
+  type            TypeDeclaration
+  categorie String
+  date DateTime 
+  arrondissement String
+  lieu_de_depot String?
+  photo String ?
+  circonstance String?
+  num_piece String?
+  cni String?
+  deposer Deposer @default(n)
+  user Utilisateur @relation(fields: [userID], references: [id])
+  userID String @db.ObjectId
+  Piece     Piece @relation(fields: [PieceID], references: [id])
+  PieceID   String @db.ObjectId 
+  
+   
+} 
+model Categorie { 
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  nom             String
+  Piece Piece[]
+}
+model Piece {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  num_piece       String
+  nom             String
+  prenom          String
+  nom_pere        String?
+  nom_mere        String?
+  nee_le          String
+  lieu            String
+  status          String
+  categorie       Categorie @relation(fields: [CategorieID], references: [id])
+  CategorieID     String    @db.ObjectId
+  Declaration Declaration[]
+  
+}
+
+
+// model Piece {
+//   id          Int      @id @default(autoincrement())
+//   num_piece   String?
+//   nom         String?
+//   prenom      String?
+//   nom_pere    String?
+//   nom_mere    String?
+//   nee_le      DateTime?
+//   lieu        String?
+//   status      String?
+//   categorie   Categorie @relation(fields: [CategorieID], references: [id])
+//   CategorieID String
+//   user        Utilisateur      @relation(fields: [userID], references: [id])
+//   userID      String
+// }
+
+
