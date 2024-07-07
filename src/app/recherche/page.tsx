@@ -61,24 +61,24 @@ const FormElements = () => {
 
   const [documentFound, setDocumentFound] = useState<boolean | null>(null);
 
-  // Récupération des catégories
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await fetch("/api/categ");
-  //       const data = await response.json();
-  //       if (data.success) {
-  //         setCategorie(data.data);
-  //       } else {
-  //         toast.error(data.message);
-  //       }
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     }
-  //   }
+  //Récupération des catégories
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/categ");
+        const data = await response.json();
+        if (data.success) {
+          setCategorie(data.data);
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
 
-  //   fetchData();
-  // }, [data]);
+    fetchData();
+  }, [data]);
 
   async function onSubmit(data: Donnees) {
     try {
