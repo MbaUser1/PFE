@@ -22,6 +22,10 @@ const options = [
   { value: "permis de conduire B", label: "Permis B" },
   { value: "autres", label: "Autres" },
 ];
+interface Categorie {
+  id: string;
+  nom: string;
+}
 
 interface Donnees {
   numeros: string;
@@ -63,7 +67,7 @@ const FormElements = () => {
   } = useForm<Donnees2>();
 
   const [loading, setLoading] = useState(false);
-  const [categorie, setCategorie] = useState([]);
+  const [categorie, setCategorie] = useState<Categorie[]>([]);
   const [data, setData] = useState<DocumentData[] | null>(null);
   const [document, setDocument] = useState<DocumentData | null>(null);
   const [point, setPoint] = useState<string | null>(null);
@@ -294,6 +298,203 @@ const FormElements = () => {
               </div>
             </div>
           ))}
+        <div className="mt-8 flex flex-col gap-9">
+          {/* Formulaire 1 */}
+          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <form onSubmit={handleSubmitForm1(onSubmit)}>
+              <div className="flex flex-col p-6.5">
+                <div className="mb-0.5 flex flex-col gap-4 xl:flex-row">
+                  <div className="relative w-full xl:w-5/6">
+                    <input
+                      {...registerForm1("numeros", {
+                        required: "Ce champ est obligatoire",
+                      })}
+                      type="text"
+                      placeholder="Entrez le N° du document"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-12 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                    <FontAwesomeIcon
+                      icon={faSearch}
+                      className="text-gray-500 peer-focus:text-gray-900 bottom-6/3 absolute left-4 h-[18px] w-[18px] pt-4"
+                    />
+                    {errorsForm1.numeros && (
+                      <small className="text-sm text-rose-600">
+                        {errorsForm1.numeros.message}
+                      </small>
+                    )}
+                  </div>
+                  <div className="w-full xl:w-1/6">
+                    {loading ? (
+                      <div className="mb-5">
+                        <input
+                          type="submit"
+                          value="...Patientez un instant"
+                          className="flex w-full justify-center rounded bg-orange-500 p-3 font-medium text-gray hover:bg-opacity-90"
+                        />
+                      </div>
+                    ) : (
+                      <input
+                        className="flex w-full justify-center rounded bg-orange-500 p-3 font-medium text-gray hover:bg-opacity-90"
+                        type="submit"
+                        value="Rechercher"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          {/* Formulaire 2 */}
+          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+              <h3 className="font-medium text-black dark:text-white">Ou</h3>
+            </div>
+            <form onSubmit={handleSubmitForm2(onSubmit2)}>
+              <div className="flex flex-col gap-5.5 p-6.5">
+                <div className="mb-2.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                      Categorie <span className="text-meta-1">*</span>
+                    </label>
+                    <select
+                      {...registerForm2("categorie", {
+                        required: "Ce champ est obligatoire",
+                      })}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    >
+                      {categorie.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option.nom}
+                        </option>
+                      ))}
+                    </select>
+                    {errorsForm2.categorie && (
+                      <small className="text-sm text-rose-600">
+                        {errorsForm2.categorie.message}
+                      </small>
+                    )}
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                      Nom <span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      {...registerForm2("nom", {
+                        required: "Ce champ est obligatoire",
+                      })}
+                      type="text"
+                      placeholder=""
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                    {errorsForm2.nom && (
+                      <small className="text-sm text-rose-600 ">
+                        {errorsForm2.nom.message}
+                      </small>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-2.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                      Prenom <span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      {...registerForm2("prenom", {
+                        required: "Ce champ est obligatoire",
+                      })}
+                      type="text"
+                      placeholder=""
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                    {errorsForm2.prenom && (
+                      <small className="text-sm text-rose-600 ">
+                        {errorsForm2.prenom.message}
+                      </small>
+                    )}
+                  </div>
+
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                      Nom du pere (facultatif)
+                    </label>
+                    <input
+                      {...registerForm2("pnom_p", {})}
+                      type="text"
+                      placeholder=""
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                      Nom de la mere (facultatif)
+                    </label>
+                    <input
+                      {...registerForm2("mnom_p", {})}
+                      type="text"
+                      placeholder=""
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                </div>
+                <div className="mb-2.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                      Date de naissance <span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      {...registerForm2("date_p", {
+                        required: "Ce champ est obligatoire",
+                      })}
+                      type="date"
+                      placeholder=""
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                    {errorsForm2.date_p && (
+                      <small className="text-sm text-rose-600 ">
+                        {errorsForm2.date_p.message}
+                      </small>
+                    )}
+                  </div>
+
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                      Lieu de naissance <span className="text-meta-1">*</span>
+                    </label>
+                    <input
+                      {...registerForm2("lieu_p", {
+                        required: "Ce champ est obligatoire",
+                      })}
+                      type="text"
+                      placeholder=""
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                    {errorsForm2.lieu_p && (
+                      <small className="text-sm text-rose-600 ">
+                        {errorsForm2.lieu_p.message}
+                      </small>
+                    )}
+                  </div>
+                </div>
+                {loading ? (
+                  <div className="mb-5">
+                    <input
+                      type="submit"
+                      value="...Patientez un instant"
+                      className="mt-8 w-full cursor-pointer rounded-lg border bg-orange-500 p-3 text-white transition hover:bg-opacity-90"
+                    />
+                  </div>
+                ) : (
+                  <input
+                    className="mt-8 flex w-full justify-center rounded bg-orange-500 p-3 font-medium text-white hover:bg-opacity-90"
+                    type="submit"
+                    value="Rechercher"
+                  />
+                )}
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </DefaultLayout>
   );
