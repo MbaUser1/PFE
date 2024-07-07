@@ -69,7 +69,8 @@ const FormElements = () => {
   const [loading, setLoading] = useState(false);
   const [categorie, setCategorie] = useState<Categorie[]>([]);
   const [data, setData] = useState<DocumentData[] | null>(null);
-  const [document, setDocument] = useState<DocumentData | null>(null);
+  // const [document, setDocument] = useState<Donnees2 | null>(null);
+  const [document, setDocument] = useState<DocumentData>();
   const [point, setPoint] = useState<string | null>(null);
   const [categ, setCateg] = useState<string | null>(null);
   const [documentFound, setDocumentFound] = useState<boolean | null>(null);
@@ -103,13 +104,14 @@ const FormElements = () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData); // Ajoutez cette ligne pour vérifier la structure des données
+      // console.log(responseData); // Ajoutez cette ligne pour vérifier la structure des données
       setData(responseData.data);
-      setDocument(responseData.data2);
+
       setPoint(responseData.point);
       setCateg(responseData.categ);
 
-      if (responseData.data && responseData.data.length > 0) {
+      if (responseData.data2 && responseData.data2.length > 1) {
+        setDocument(responseData.data2);
         setDocumentFound(true);
       } else {
         setDocumentFound(false);
@@ -144,9 +146,9 @@ const FormElements = () => {
 
       const responseData = await response.json();
       setData(responseData.data);
-      setDocument(responseData.data2);
 
-      if (responseData.data && responseData.data.length > 0) {
+      if (responseData.data2 && responseData.data2.length > 0) {
+        setDocument(responseData.data2);
         setDocumentFound(true);
       } else {
         setDocumentFound(false);
@@ -211,7 +213,7 @@ const FormElements = () => {
                           Nom <span className="text-meta-1">*</span>
                         </label>
                         <input
-                          value={document?.nom ?? ""}
+                          value={document?.nom ?? "gg"}
                           type="text"
                           className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         />
@@ -258,6 +260,8 @@ const FormElements = () => {
                           className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         />
                       </div>
+                    </div>
+                    <div className="mb-0.5 flex flex-col gap-4 xl:flex-row ">
                       <div className="relative w-full xl:w-5/6">
                         <label className="mb-2 block text-sm font-medium text-black dark:text-white">
                           Lieu de naissance{" "}
@@ -269,17 +273,17 @@ const FormElements = () => {
                           className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         />
                       </div>
-                    </div>
-                    <div className="relative">
-                      <label className="mb-2 block text-sm font-medium text-black dark:text-white">
-                        Point de récupération{" "}
-                        <span className="text-meta-1">*</span>
-                      </label>
-                      <input
-                        value={point ?? ""}
-                        type="text"
-                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      />
+                      <div className="relative w-full xl:w-5/6">
+                        <label className="mb-2 block text-sm font-medium text-black dark:text-white">
+                          Point de récupération{" "}
+                          <span className="text-meta-1">*</span>
+                        </label>
+                        <input
+                          value={point ?? ""}
+                          type="text"
+                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
