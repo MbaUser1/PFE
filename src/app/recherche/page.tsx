@@ -73,7 +73,7 @@ const FormElements = () => {
           toast.error(data.message);
         }
       } catch (error) {
-        toast.error(error.message);
+        toast.error("Oups quelque chose c'est mal passée ....");
       }
     }
 
