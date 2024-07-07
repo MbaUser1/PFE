@@ -84,7 +84,7 @@ const SignupPage = () => {
             <div className="w-full px-4">
               <div className="dark:bg-dark mx-auto max-w-[500px] rounded bg-white px-6 py-10 shadow-three sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
-                  Creer votre compte m
+                  Creer votre compte
                 </h3>
                 <p className="text-body-color mb-11 text-center text-base font-medium">
                   Gratuit et super facile
@@ -127,7 +127,7 @@ const SignupPage = () => {
                     <input
                       {...register("prenom", { required: true })}
                       type="text"
-                      name="numero_cni"
+                      name="prenom"
                       placeholder="Entrez votre prenom"
                       className="dark:text-body-color-dark text-body-color w-full rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                     />

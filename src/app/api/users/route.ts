@@ -45,9 +45,18 @@ export async function POST(request: Request) {
     // Encrypt the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const response = await fetch(`/api/otp`);
+    // Construire l'URL complète pour l'API OTP
+    const protocol = request.headers.get("x-forwarded-proto") || "http";
+    const host = request.headers.get("host");
+    const otpUrl = new URL(`${protocol}://${host}/api/otp`);
+
+    // Récupérer l'OTP
+    const response = await fetch(otpUrl.toString(), {
+      method: "GET",
+    });
+
     const data = await response.json();
-    const otp = data.otp;
+    const otp = data.data;
 
     // Create new user with OTP
     const newUser = await db.utilisateur.create({
@@ -63,23 +72,17 @@ export async function POST(request: Request) {
     });
 
     // Send OTP to the user
-    // const response = await fetch(
-    //   `${request.nextUrl.origin}/api/infobip`,
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       message: utilisateur.nom,
-    //       phoneNumber: utilisateur.telephone,
-    //       name: point.nom,
-    //       numberPoint: "+237 654468855", // Numéro du point de dépôt à gérer
-    //     }),
-    //   },
-    // );
+    const otpUrl1 = new URL(`${protocol}://${host}/api/infobip`);
+    // Envoie du SMS
+    const response1 = await fetch(otpUrl1.toString(), {
+      method: "POST",
+      body: JSON.stringify({
+        otp: otp,
+        phoneNumber: newUser.telephone,
+      }),
+    });
 
-    // const data = await response.json();
+    const data1 = await response1.json();
 
     return NextResponse.json(
       {
