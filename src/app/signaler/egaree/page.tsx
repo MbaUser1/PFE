@@ -41,6 +41,10 @@ const Circonstances = [
   { value: "RAS", label: "RAS" },
   { value: "autres", label: "Autres" },
 ];
+interface Categorie {
+  id: string;
+  nom: string;
+}
 
 interface Donnees {
   type: "";
@@ -68,31 +72,31 @@ const FormLayout = () => {
     formState: { errors },
   } = useForm<Donnees>();
   const [loading, setLoading] = useState(false);
-  const [categorie, setcategorie] = useState([]);
+  const [categorie, setCategories] = useState<Categorie[]>([]); // Définir le type de categorie
   //infobule
   const [showTooltip, setShowTooltip] = useState(false);
   // const { data: session, status } = useSession();
 
   //recuperation des categories
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await fetch("/api/categ");
-  //       const data = await response.json();
-  //       if (data.success) {
-  //         setcategorie(data.data);
-  //       } else {
-  //         setError(data.message);
-  //       }
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/categ");
+        const data = await response.json();
+        if (data.success) {
+          setCategories(data.data);
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error("Oups quelque chose c'est mal passée ....");
+      }
+    }
 
-  //   fetchData();
-  // }, []);
-  // //recuperation de l'id de l'utilisateur
+    fetchData();
+  }, []);
+  //recuperation de l'id de l'utilisateur
   // const userID = session?.user?.id;
   const router = useRouter();
 
@@ -114,7 +118,7 @@ const FormLayout = () => {
         toast.success("Déclaration créée avec succès");
         reset();
 
-        router.push("/pieces/egarees");
+        // router.push("/pieces/egarees");
       } else {
         setLoading(false);
         toast.error(
@@ -130,20 +134,20 @@ const FormLayout = () => {
   return (
     <DefaultLayout>
       <div className="mt-auto">
-        <Breadcrumb pageName="Signaler" />
+        <Breadcrumb pageName="Signaler(Egaré)" />
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
               <h3 className="flex items-center justify-between font-medium text-black dark:text-white">
                 <div>
                   <Link href="egaree">
-                    <button className="btn mr-2 rounded bg-danger px-4 py-2 text-white">
-                      Egarée
+                    <button className="btn mr-2 rounded bg-danger px-6 py-2 text-white">
+                      Egaré
                     </button>
                   </Link>
                   <Link href="trouvee">
-                    <button className="btn rounded bg-success px-4 py-2 text-white">
-                      Trouvée
+                    <button className="btn rounded bg-success px-5 py-2 text-white">
+                      Trouvé
                     </button>
                   </Link>
                 </div>
@@ -152,11 +156,10 @@ const FormLayout = () => {
                     className="btn relative ml-2 rounded bg-gradient-to-r from-green-400 to-blue-500 px-4 py-2 text-white hover:from-green-500 hover:to-blue-600"
                     onMouseEnter={() => setShowTooltip(true)}
                     onMouseLeave={() => setShowTooltip(false)}
-                    title="Acceder au compte premium et beneficier de pleins d'avantage"
                   >
                     Premium
                     {showTooltip && (
-                      <span className="bg-gray-800 tooltip pointer-events-auto absolute left-1/2 -mt-8 -translate-x-1/2 transform whitespace-nowrap rounded p-1 text-xs text-white opacity-100 transition-opacity duration-300">
+                      <span className="bg-gray-800 tooltip pointer-events-auto absolute left-1/2 -mt-18 -translate-x-1/2 transform whitespace-nowrap rounded p-1 text-xs text-blue-500 opacity-100 transition-opacity duration-300">
                         Accédez aux fonctionnalités Premium
                       </span>
                     )}
@@ -178,11 +181,11 @@ const FormLayout = () => {
                       })}
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     >
-                      {/* {categorie.map((option) => (
+                      {categorie.map((option) => (
                         <option key={option.id} value={option.id}>
                           {option.nom}
                         </option>
-                      ))} */}
+                      ))}
                     </select>
                     {errors.categorie && (
                       <small className="text-sm text-rose-600">
@@ -211,7 +214,7 @@ const FormLayout = () => {
                 <div className="mb-2.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-2 block text-sm font-medium text-black dark:text-white">
-                      Où l avez-vous egaré ??{" "}
+                      Où avez-vous egaré ??{" "}
                       <span className="text-meta-1">*</span>
                     </label>
                     <select
@@ -388,7 +391,7 @@ const FormLayout = () => {
                     {...register("userID", {
                       required: "Ce champ est obligatoire",
                     })}
-                    // value={userID}
+                    value="66704b083312e1e14dca5274"
                     type="hidden"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />

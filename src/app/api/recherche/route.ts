@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       try {
         const declaration = await prisma.declaration.findMany({
           where: {
-            PieceID: document[0].num_piece,
+            PieceID: document[0].id,
             type: "trouve",
             deposer: "o",
             categorie: document[0].CategorieID,
@@ -102,7 +102,7 @@ export async function PUT(request: Request) {
       try {
         const declaration = await prisma.declaration.findMany({
           where: {
-            PieceID: document[0].num_piece,
+            PieceID: document[0].id,
             type: "trouve",
             deposer: "o",
           },
