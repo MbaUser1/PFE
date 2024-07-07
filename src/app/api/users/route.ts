@@ -2,7 +2,7 @@
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { generateOtp, sendOtp } from "../infobip/route";
+
 export async function POST(request: Request) {
   try {
     const { nom, prenom, email, telephone, password, sexe } =
@@ -44,7 +44,10 @@ export async function POST(request: Request) {
 
     // Encrypt the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const otp = generateOtp();
+
+    const response = await fetch(`/api/otp`);
+    const data = await response.json();
+    const otp = data.otp;
 
     // Create new user with OTP
     const newUser = await db.utilisateur.create({
@@ -60,8 +63,23 @@ export async function POST(request: Request) {
     });
 
     // Send OTP to the user
+    // const response = await fetch(
+    //   `${request.nextUrl.origin}/api/infobip`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       message: utilisateur.nom,
+    //       phoneNumber: utilisateur.telephone,
+    //       name: point.nom,
+    //       numberPoint: "+237 654468855", // Numéro du point de dépôt à gérer
+    //     }),
+    //   },
+    // );
 
-    //await sendOtp(telephone, `Votre code otp est ${otp}`);
+    // const data = await response.json();
 
     return NextResponse.json(
       {

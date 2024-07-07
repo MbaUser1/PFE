@@ -1,24 +1,18 @@
-// src/lib/otp-utils.ts
+// src/app/api/infobip/route.ts
+
+import { NextRequest, NextResponse } from "next/server";
 import https from "follow-redirects/https";
 
-export function generateOtp(length: number = 6): string {
-  let otp = "";
-  const characters = "0123456789";
-  for (let i = 0; i < length; i++) {
-    otp += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return otp;
-}
-
-export async function sendOtp(phoneNumber: string, message: string) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const { otp, phoneNumber } = await req.json();
   // Set the request options for Infobip API
   const options = {
     method: "POST",
-    hostname: "y3qg99.api.infobip.com",
+    hostname: "dkv3qv.api.infobip.com",
     path: "/sms/2/text/advanced",
     headers: {
       Authorization:
-        "App f406661ebf57b0dc85d0aca8a8b548da-e2bcfae2-d8c7-4c16-ac30-425c3b8d1ecf",
+        "App 235705488a7a9a2fd30170289b9bb4c2-89f5d269-5900-4e18-b52d-f6458ce275b0",
       "Content-Type": "application/json",
       Accept: "application/json",
     },
@@ -26,38 +20,35 @@ export async function sendOtp(phoneNumber: string, message: string) {
   };
 
   return new Promise((resolve, reject) => {
-    // Create the request
-    const infobipReq = https.request(options, function (infobipRes) {
+    const infobipReq = https.request(options, (infobipRes) => {
       let chunks: any[] = [];
 
-      infobipRes.on("data", function (chunk) {
+      infobipRes.on("data", (chunk) => {
         chunks.push(chunk);
       });
 
-      infobipRes.on("end", function () {
+      infobipRes.on("end", () => {
         const body = Buffer.concat(chunks).toString();
         console.log(body);
-        resolve(body);
+        resolve(NextResponse.json({ response: body }));
       });
 
-      infobipRes.on("error", function (error) {
+      infobipRes.on("error", (error) => {
         console.error(error);
-        reject(new Error(error.message));
+        resolve(NextResponse.json({ error: error.message }, { status: 500 }));
       });
     });
 
-    // Define the SMS message details
     const postData = JSON.stringify({
       messages: [
         {
           destinations: [{ to: phoneNumber }],
           from: "ServiceSMS",
-          text: message,
+          text: `Votre code otp est: ${otp} .`,
         },
       ],
     });
 
-    // Write the data and end the request
     infobipReq.write(postData);
     infobipReq.end();
   });

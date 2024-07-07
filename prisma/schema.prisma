@@ -35,7 +35,7 @@ model Utilisateur {
   prenom          String?
   email           String?  @unique
   image           String?
-  telephone       String
+  telephone       String   @unique
   motDePasseHache String
   motDePasse      String? //unhashed pass
   role            UserRole @default(utilisateur) // Default role is USER

@@ -1,5 +1,5 @@
 // src/app/api/verify-otp/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 
 export async function POST(req: NextRequest) {
@@ -14,18 +14,16 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { message: "Utilisateur non trouvé" },
-        { status: 404 }
-
+        { status: 404 },
       );
     }
 
     // Vérifiez le code OTP
     if (user.otp !== otp) {
-      console.log("code invalide")
+      console.log("code invalide");
       return NextResponse.json(
         { valid: false, message: "Code OTP invalide" },
-        { status: 400 }
-        
+        { status: 400 },
       );
     }
 
@@ -35,12 +33,15 @@ export async function POST(req: NextRequest) {
       data: { isVerifiedNum: true },
     });
 
-    return NextResponse.json({ valid: true, message: "Numéro vérifié avec succès" }, { status: 200 });
+    return NextResponse.json(
+      { valid: true, message: "Numéro vérifié avec succès" },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: error.message, message: "Erreur de serveur" },
-      { status: 500 }
+      { success: false, message: "Erreur de serveur" },
+      { status: 500 },
     );
   }
 }
