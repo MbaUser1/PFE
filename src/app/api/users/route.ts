@@ -104,3 +104,76 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function PUT(request: Request) {
+  try {
+    const { id, nom, prenom, email, telephone, password, sexe } =
+      await request.json();
+
+    // Vérifiez si l'utilisateur avec cet email existe déjà
+    if (email) {
+      const existingEmail = await db.utilisateur.findUnique({
+        where: { email: email },
+      });
+      if (existingEmail && existingEmail.id !== id) {
+        return NextResponse.json(
+          {
+            data: null,
+            message: `User with this email (${email}) already exists in the Database`,
+          },
+          { status: 409 },
+        );
+      }
+    }
+
+    // Vérifiez si l'utilisateur avec ce téléphone existe déjà
+    if (telephone) {
+      const existingPhone = await db.utilisateur.findUnique({
+        where: { telephone: telephone },
+      });
+      if (existingPhone && existingPhone.id !== id) {
+        return NextResponse.json(
+          {
+            data: null,
+            message: `User with this phone (${telephone}) already exists in the Database`,
+          },
+          { status: 409 },
+        );
+      }
+    }
+
+    // Construisez dynamiquement l'objet de mise à jour
+    const updateData: any = {};
+    if (nom) updateData.nom = nom;
+    if (prenom) updateData.prenom = prenom;
+    if (email) updateData.email = email;
+    if (telephone) updateData.telephone = telephone;
+    if (sexe) updateData.sexe = sexe;
+    if (password) {
+      updateData.motDePasseHache = await bcrypt.hash(password, 10);
+    }
+
+    // Mettez à jour l'utilisateur
+    const updatedUser = await db.utilisateur.update({
+      where: { id: id },
+      data: updateData,
+    });
+
+    return NextResponse.json(
+      {
+        data: updatedUser,
+        message: "Utilisateur mis à jour avec succès.",
+      },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      {
+        error: "Invalid",
+        message: "Server Error: Something went wrong",
+      },
+      { status: 500 },
+    );
+  }
+}

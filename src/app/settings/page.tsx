@@ -1,6 +1,10 @@
+"use client";
+import React, { useState, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
-import { Metadata } from "next";
+import toast from "react-hot-toast";
+import type { PutBlobResult } from "@vercel/blob";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 const sexe = [
@@ -10,8 +14,92 @@ const sexe = [
 ];
 
 const Settings = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Donnees>();
+
+  interface Donnees {
+    id: "";
+    nom: "";
+    prenom: "";
+    telephone: "";
+    email: "";
+    sexe: "";
+    password: "";
+  }
+
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const inputIduRef = useRef<HTMLInputElement>(null);
+
+  const [loading, setLoading] = useState(false);
   // const { data: session, status } = useSession();
   // const userID = session?.user?.id;
+
+  async function onSubmit(data: Donnees) {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/users", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        setLoading(false);
+        toast.success("Compte modifié");
+        reset();
+
+        // router.push("/pieces/egarees");
+      } else {
+        setLoading(false);
+        toast.error(
+          responseData.message || "Oups, quelque chose s'est mal passé",
+        );
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Oups, quelque chose s'est mal passé, essayez encore");
+    }
+  }
+
+  const onSubmit2 = async (data: any) => {
+    try {
+      setLoading(true);
+      const file = inputFileRef.current?.files?.[0];
+      // const userID = session?.user?.id;
+      if (file) {
+        const response = await fetch(
+          `/api/uploadPhoto?filename=${file.name}&idU=${inputIduRef.current?.value}`,
+          {
+            method: "POST",
+            body: file,
+          },
+        );
+        if (!response.ok) {
+          throw new Error("Failed to upload file");
+        }
+        toast.success("Photos modifiée avec succès");
+        setLoading(false);
+        reset();
+        const newBlob = await response.json();
+        setBlob(newBlob);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Error uploading file:", error);
+      // Handle error state or feedback to the user
+    }
+    //console.log(inputCategorieRef);
+  };
+
   return (
     <>
       <DefaultLayout>
@@ -27,7 +115,7 @@ const Settings = () => {
                   </h3>
                 </div>
                 <div className="p-7">
-                  <form action="#">
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                       <div className="w-full sm:w-1/2">
                         <label
@@ -63,14 +151,21 @@ const Settings = () => {
                             </svg>
                           </span>
                           <input
+                            {...register("nom", {})}
                             className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="text"
-                            name="cni"
+                            name="nom"
                             id="fullName"
-                            placeholder="Devid Jhon"
                             // defaultValue={session?.user?.nom || ""}
                           />
                         </div>
+                        <input
+                          {...register("id", {})}
+                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                          type="hidden"
+                          value="66704b083312e1e14dca5274"
+                          // defaultValue={session?.user?.nom || ""}
+                        />
                       </div>
                       <div className="w-full sm:w-1/2">
                         <label
@@ -106,11 +201,12 @@ const Settings = () => {
                             </svg>
                           </span>
                           <input
+                            {...register("prenom")}
                             className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="text"
-                            name="fullName"
+                            name="prenom"
                             id="fullName"
-                            placeholder="Devid Jhon"
+
                             // defaultValue={session?.user?.prenom || ""}
                           />
                         </div>
@@ -126,13 +222,32 @@ const Settings = () => {
                           Téléphone
                         </label>
                         <input
+                          {...register("telephone", {
+                            maxLength: {
+                              value: 9,
+                              message:
+                                "Le numéro de téléphone doit comporter au maximum 9 chiffres",
+                            },
+                            minLength: {
+                              value: 9,
+                              message:
+                                "Le numéro de téléphone doit comporter au minimum 9 chiffres",
+                            },
+                          })}
                           className="w-full rounded border border-stroke bg-gray px-4.5 py-3 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                          type="numeros"
-                          name="phoneNumber"
+                          type="telephone"
+                          name="telephone"
                           id="phoneNumber"
-                          placeholder="+990 3343 7865"
+                          placeholder="+237 654468855"
+                          // maxLength={9}
                           // defaultValue={session?.user?.telephone || ""}
                         />
+
+                        {errors.telephone && (
+                          <small className="text-sm text-rose-600 ">
+                            {errors.telephone.message}
+                          </small>
+                        )}
                       </div>
                       <div className="w-full sm:w-1/2">
                         <label
@@ -168,11 +283,12 @@ const Settings = () => {
                             </svg>
                           </span>
                           <input
+                            {...register("email")}
                             className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                             type="email"
-                            name="emailAddress"
-                            id="emailAddress"
-                            placeholder="devidjond45@gmail.com"
+                            name="email"
+                            id="email"
+
                             // defaultValue={session?.user?.email || ""}
                           />
                         </div>
@@ -188,9 +304,10 @@ const Settings = () => {
                           Mot de passe
                         </label>
                         <input
+                          {...register("password")}
                           className="w-full rounded border border-stroke bg-gray px-4.5 py-3 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                           type="password"
-                          name="Username"
+                          name="password"
                           id="Username"
                           placeholder="devidjhon24"
                         />
@@ -203,9 +320,7 @@ const Settings = () => {
                           Sexe
                         </label>
                         <select
-                          // {...register("arrondissement", {
-                          //   required: "Ce champ est obligatoire",
-                          // })}
+                          {...register("sexe", {})}
                           className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         >
                           {sexe.map((option) => (
@@ -220,16 +335,25 @@ const Settings = () => {
                     <div className="flex justify-end gap-4.5">
                       <button
                         className="flex justify-center rounded border border-stroke px-6 py-2 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                        type="submit"
+                        type="reset"
                       >
                         Cancel
                       </button>
-                      <button
-                        className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"
-                        type="submit"
-                      >
-                        Save
-                      </button>
+                      {loading ? (
+                        <button
+                          className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"
+                          type="submit"
+                        >
+                          Save...
+                        </button>
+                      ) : (
+                        <button
+                          className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"
+                          type="submit"
+                        >
+                          Save
+                        </button>
+                      )}
                     </div>
                   </form>
                 </div>
@@ -243,7 +367,7 @@ const Settings = () => {
                   </h3>
                 </div>
                 <div className="p-7">
-                  <form action="#">
+                  <form onSubmit={handleSubmit(onSubmit2)}>
                     <div className="mb-4 flex items-center gap-3">
                       <div className="h-14 w-14 overflow-hidden rounded-full">
                         <Image
@@ -276,10 +400,18 @@ const Settings = () => {
                       className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5"
                     >
                       <input
+                        ref={inputFileRef}
                         type="file"
-                        accept="image/*"
+                        required
                         className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
                       />
+                      <input
+                        ref={inputIduRef}
+                        type="hidden"
+                        value="66704b083312e1e14dca5274"
+                        className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
+                      />
+
                       <div className="flex flex-col items-center justify-center space-y-3">
                         <span className="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
                           <svg
@@ -325,12 +457,21 @@ const Settings = () => {
                       >
                         Cancel
                       </button>
-                      <button
-                        className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"
-                        type="submit"
-                      >
-                        Save
-                      </button>
+                      {loading ? (
+                        <button
+                          className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"
+                          type="submit"
+                        >
+                          Save...
+                        </button>
+                      ) : (
+                        <button
+                          className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"
+                          type="submit"
+                        >
+                          Save
+                        </button>
+                      )}
                     </div>
                   </form>
                 </div>
