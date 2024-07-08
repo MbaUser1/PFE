@@ -8,11 +8,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // Set the request options for Infobip API
   const options = {
     method: "POST",
-    hostname: "y3qg99.api.infobip.com",
+    hostname: "dkv3qv.api.infobip.com",
     path: "/sms/2/text/advanced",
     headers: {
       Authorization:
-        "App f406661ebf57b0dc85d0aca8a8b548da-e2bcfae2-d8c7-4c16-ac30-425c3b8d1ecf",
+        "App 235705488a7a9a2fd30170289b9bb4c2-89f5d269-5900-4e18-b52d-f6458ce275b0",
       "Content-Type": "application/json",
       Accept: "application/json",
     },
