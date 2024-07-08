@@ -129,7 +129,7 @@ const Header = (props: {
           {/* <!-- User Area --> */}
           <DropdownUser
             nom={session?.user?.nom ?? ""}
-            img={session?.user?.image ?? "/images/user/user.png"}
+            img={session?.user?.image ?? "/images/user/user.jpg"}
             email={session?.user?.email ?? "user@gmail.com"}
             role="User"
           />
