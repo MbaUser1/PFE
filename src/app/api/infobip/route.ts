@@ -5,6 +5,7 @@ import https from "follow-redirects/https";
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { otp, phoneNumber } = await req.json();
+  const phoneNumber1 = `237${phoneNumber}`;
   // Set the request options for Infobip API
   const options = {
     method: "POST",
@@ -42,7 +43,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const postData = JSON.stringify({
       messages: [
         {
-          destinations: [{ to: phoneNumber }],
+          destinations: [{ to: phoneNumber1 }],
           from: "ServiceSMS",
           text: `Votre code otp est: ${otp} .`,
         },
