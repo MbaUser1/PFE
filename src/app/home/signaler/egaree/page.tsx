@@ -9,36 +9,23 @@ import { useSession } from "next-auth/react";
 // import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const options = [
-  { value: "acte de naissance", label: "Acte de naissance" },
-  { value: "cni", label: "CNI" },
-  { value: "passeport", label: "PASSEPORT" },
-  { value: "récépissé", label: "Récépissé" },
-  { value: "diplome cep", label: "Diplôme CEP" },
-  { value: "diplome cap", label: "Diplôme CAP" },
-  { value: "diplome bepc", label: "Diplôme BEPC" },
-  { value: "diplome gce o", label: "Diplôme GCE O" },
-  { value: "diplome probatoire", label: "Diplôme PROBATOIRE" },
-  { value: "diplome gce a", label: "Diplôme GCE A" },
-  { value: "diplome BAC", label: "Diplôme BAC" },
-  { value: "permis de conduire a", label: "Permis A" },
-  { value: "permis de conduire B", label: "Permis B" },
-  { value: "permis de conduire c", label: "Permis C" },
-  { value: "autres", label: "Autres" },
-];
 const options2 = [
-  { value: "mifi", label: "Mifi" },
-  { value: "haut-plateau", label: "Haut-plateau" },
-  { value: "nde", label: "NDE" },
-  { value: "bamboutos", label: "Bamboutos" },
-  { value: "nkoung-nki", label: "Nkoung-nki" },
-  { value: "autres", label: "Autres" },
+  { value: "Mifi", label: "Mifi" },
+  { value: "Menoua", label: "Menoua" },
+  { value: "Hauts-Plateaux", label: "Hauts-Plateaux" },
+  { value: "Nde", label: "NDE" },
+  { value: "Bamboutos", label: "Bamboutos" },
+  { value: "Haut-Nkam", label: "Haut-Nkam" },
+  { value: "Nkoung-Nki", label: "Nkoung-Nki" },
+  { value: "Noun", label: "Noun" },
 ];
 const Circonstances = [
   { value: "", label: "Veuillez selectionner" },
   { value: "Agression", label: "Agression" },
-  { value: "Neglicence", label: "Neglicence" },
   { value: "Accidents", label: "Accidents" },
+  { value: "Vol", label: "Vol" },
+  { value: "Neglicence", label: "Neglicence" },
+  { value: "Perte", label: "Perte" },
   { value: "RAS", label: "RAS" },
   { value: "autres", label: "Autres" },
 ];

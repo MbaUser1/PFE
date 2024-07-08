@@ -12,15 +12,15 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 import Link from "next/link";
 
-const options = [
-  { value: "acte de naissance", label: "Acte de naissance" },
-  { value: "cni", label: "CNI" },
-  { value: "recepisé", label: "Recepisé" },
-  { value: "permis de conduire a", label: "Permis A" },
-  { value: "permis de conduire B", label: "Permis B" },
-  { value: "autres", label: "Autres" },
-];
 interface Categorie {
+  id: string;
+  nom: string;
+}
+interface Categ {
+  id: string;
+  nom: string;
+}
+interface Point {
   id: string;
   nom: string;
 }
@@ -38,15 +38,21 @@ interface Donnees2 {
   date_p: string;
   lieu_p: string;
 }
-
-interface DocumentData {
-  photo: string;
+interface Documents {
+  categorie: string;
   nom: string;
   prenom: string;
   nom_pere?: string;
   nom_mere?: string;
   nee_le: string;
   lieu: string;
+}
+
+interface Declarations {
+  nom: string;
+  type: string;
+  photo: string;
+  arrondissement: string;
 }
 
 const FormElements = () => {
@@ -66,11 +72,11 @@ const FormElements = () => {
 
   const [loading, setLoading] = useState(false);
   const [categorie, setCategorie] = useState<Categorie[]>([]);
-  const [data, setData] = useState<DocumentData[] | null>(null);
-  // const [document, setDocument] = useState<Donnees2 | null>(null);
-  const [document, setDocument] = useState<DocumentData>();
-  const [point, setPoint] = useState<string | null>(null);
-  const [categ, setCateg] = useState<string | null>(null);
+  const [data, setData] = useState<Declarations[] | null>(null);
+  const [document, setDocument] = useState<Documents[] | null>(null);
+  //const [document, setDocument] = useState<Donnees2>();
+  const [point, setPoint] = useState<Point | null>(null);
+  const [categ, setCateg] = useState<Categ | null>(null);
   const [documentFound, setDocumentFound] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -104,6 +110,7 @@ const FormElements = () => {
       const responseData = await response.json();
       // console.log(responseData); // Ajoutez cette ligne pour vérifier la structure des données
       setData(responseData.data);
+      setDocument(responseData.data2);
 
       setPoint(responseData.point);
       setCateg(responseData.categ);
@@ -144,6 +151,9 @@ const FormElements = () => {
 
       const responseData = await response.json();
       setData(responseData.data);
+      setDocument(responseData.data2);
+      setPoint(responseData.point);
+      setCateg(responseData.categ);
 
       if (responseData.data2 && responseData.data2.length > 0) {
         setDocument(responseData.data2);
@@ -172,7 +182,7 @@ const FormElements = () => {
     <div className="max-w-270">
       <Breadcrumb pageName="Recherche" />
       {documentFound !== null &&
-        (data ? (
+        (data && document && categ ? (
           <div className="rounded-sm border border-stroke bg-white text-black shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="flex items-center justify-center pt-5.5 ">
               <h1 className="flex items-center text-lg text-green-500">
@@ -200,7 +210,7 @@ const FormElements = () => {
                         Categorie <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={categ ?? ""}
+                        value={categ.nom || ""}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -210,7 +220,7 @@ const FormElements = () => {
                         Nom <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={document?.nom ?? "gg"}
+                        value={document[0]?.nom || "gg"}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -220,7 +230,7 @@ const FormElements = () => {
                         Prénom <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={document?.prenom ?? ""}
+                        value={document[0]?.prenom ?? ""}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -232,7 +242,7 @@ const FormElements = () => {
                         Nom du père <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={document?.nom_pere ?? ""}
+                        value={document[0]?.nom_pere ?? "ss"}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -242,7 +252,7 @@ const FormElements = () => {
                         Nom de la mère <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={document?.nom_mere ?? ""}
+                        value={document[0]?.nom_mere ?? ""}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -252,7 +262,7 @@ const FormElements = () => {
                         Né le <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={document?.nee_le ?? ""}
+                        value={document[0]?.nee_le ?? ""}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -264,7 +274,7 @@ const FormElements = () => {
                         Lieu de naissance <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={document?.lieu ?? ""}
+                        value={document[0]?.lieu ?? ""}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -275,7 +285,7 @@ const FormElements = () => {
                         <span className="text-meta-1">*</span>
                       </label>
                       <input
-                        value={point ?? ""}
+                        value={point?.nom ?? ""}
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-2 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
@@ -286,15 +296,30 @@ const FormElements = () => {
             </div>
           </div>
         ) : (
-          <div className="rounded-sm border border-stroke bg-white text-black shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="flex items-center justify-center pt-5.5 ">
-              <h1 className="text-red-500 flex items-center text-lg">
-                Désolé, ce document est introuvable
-                <FontAwesomeIcon
-                  icon={faFileCircleXmark}
-                  className="text-gray-500 bottom-6/3 h-[30px] w-[30px] pl-5 peer-focus:text-green-900"
-                />
-              </h1>
+          <div className="flex flex-col gap-7.5">
+            {/* <!-- Alerts Item --> */}
+            <div className="flex w-full border-l-6 border-[#F87171] bg-[#F87171] bg-opacity-[15%]  shadow-md dark:bg-[#1B1B24] dark:bg-opacity-30 md:p-9">
+              <button></button>
+              <div className="w-full">
+                <div className="flex items-center justify-center px-5.5  ">
+                  <h1 className="flex items-center text-lg text-danger">
+                    Votre document ne se trouve pas dans notre base de données
+                    <FontAwesomeIcon
+                      icon={faFileCircleXmark}
+                      className="text-gray-500 bottom-6/3 h-[30px] w-[30px] pl-5 peer-focus:text-danger"
+                    />
+                  </h1>
+                </div>{" "}
+                <div className="flex justify-center">
+                  <Link href={"/home/signaler/egaree"}>
+                    <input
+                      type="submit"
+                      value="Faites une declaration"
+                      className="mt-8 w-full cursor-pointer rounded-lg border bg-danger p-3 text-white transition hover:bg-opacity-90"
+                    />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -310,7 +335,7 @@ const FormElements = () => {
                       required: "Ce champ est obligatoire",
                     })}
                     type="text"
-                    placeholder="Entrez le N° du document"
+                    placeholder="Entrez le n° du document"
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-12 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   <FontAwesomeIcon
@@ -328,7 +353,7 @@ const FormElements = () => {
                     <div className="mb-5">
                       <input
                         type="submit"
-                        value="...Patientez un instant"
+                        value="En cours ..."
                         className="flex w-full justify-center rounded bg-orange-500 p-3 font-medium text-gray hover:bg-opacity-90"
                       />
                     </div>
@@ -348,7 +373,9 @@ const FormElements = () => {
         {/* Formulaire 2 */}
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-            <h3 className="font-medium text-black dark:text-white">Ou</h3>
+            <h3 className="font-medium text-black dark:text-white">
+              Ou entrez les informations propres au document
+            </h3>
           </div>
           <form onSubmit={handleSubmitForm2(onSubmit2)}>
             <div className="flex flex-col gap-5.5 p-6.5">
@@ -384,7 +411,7 @@ const FormElements = () => {
                       required: "Ce champ est obligatoire",
                     })}
                     type="text"
-                    placeholder=""
+                    placeholder="Nom sur le document"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {errorsForm2.nom && (
@@ -404,7 +431,7 @@ const FormElements = () => {
                       required: "Ce champ est obligatoire",
                     })}
                     type="text"
-                    placeholder=""
+                    placeholder="Prenom sur le document"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {errorsForm2.prenom && (
@@ -421,7 +448,7 @@ const FormElements = () => {
                   <input
                     {...registerForm2("pnom_p", {})}
                     type="text"
-                    placeholder=""
+                    placeholder="Facultatif"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
@@ -432,7 +459,7 @@ const FormElements = () => {
                   <input
                     {...registerForm2("mnom_p", {})}
                     type="text"
-                    placeholder=""
+                    placeholder="Facultatif"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
