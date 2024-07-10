@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 const fields = [
   { key: "#", label: "#" },
   { key: "categorie", label: "Categories" },
-  { key: "arrondissement", label: "Arrondissement" },
+  { key: "arrondissement", label: "Lieux" },
   { key: "date", label: "Date", isDate: true },
   { key: "circonstance", label: "Circonstance" },
   { key: "deposer", label: "Recherche", isStatus: true },
@@ -64,7 +64,7 @@ export default function Page({
         <div className="flex w-full items-center justify-between"></div>
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
           <Search placeholder="Rechercher un point..." />
-          <Create label="Ajouter" href="/signaler/egaree" />
+          <Create label="Ajouter" href="/home/signaler/egaree" />
         </div>
         <Suspense
           key={query + currentPage}

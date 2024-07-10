@@ -9,16 +9,6 @@ import { useSession } from "next-auth/react";
 // import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const options2 = [
-  { value: "Mifi", label: "Mifi" },
-  { value: "Menoua", label: "Menoua" },
-  { value: "Hauts-Plateaux", label: "Hauts-Plateaux" },
-  { value: "Nde", label: "NDE" },
-  { value: "Bamboutos", label: "Bamboutos" },
-  { value: "Haut-Nkam", label: "Haut-Nkam" },
-  { value: "Nkoung-Nki", label: "Nkoung-Nki" },
-  { value: "Noun", label: "Noun" },
-];
 const Circonstances = [
   { value: "", label: "Veuillez selectionner" },
   { value: "Agression", label: "Agression" },
@@ -203,18 +193,14 @@ const FormLayout = () => {
                   <label className="mb-2 block text-sm font-medium text-black dark:text-white">
                     Où avez-vous egaré ?? <span className="text-meta-1">*</span>
                   </label>
-                  <select
+
+                  <input
                     {...register("arrondissement", {
                       required: "Ce champ est obligatoire",
                     })}
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  >
-                    {options2.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
+                    type="text"
+                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-2.5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
                   {errors.arrondissement && (
                     <small className="text-sm text-rose-600">
                       {errors.arrondissement.message}

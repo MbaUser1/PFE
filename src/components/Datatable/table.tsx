@@ -8,6 +8,7 @@ import {
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import InvoiceStatus from "@/components/Datatable/status";
+import Link from "next/link";
 import {
   formatDateToLocal,
   formatCurrency,
@@ -151,15 +152,19 @@ export default function DataTable({
                       <span className="sr-only">View</span>
                       <FontAwesomeIcon icon={faEye} className="w-5" />
                     </button>
-                    <button
-                      className="hover:bg-gray-100 rounded-md border p-2  text-warning"
-                      onClick={() => {
-                        setSelectedPId(item.PieceId);
-                        // document.getElementById("my_modal_m").showModal();
-                      }}
+                    <Link
+                      href={`/home/modification/egaree?pieceid=${item.PieceID}&Did=${item.id}`}
                     >
-                      <FontAwesomeIcon icon={faPencil} className="w-5" />
-                    </button>
+                      <button
+                        className="hover:bg-gray-100 rounded-md border p-2  text-warning"
+                        onClick={() => {
+                          setSelectedPId(item.PieceId);
+                          // document.getElementById("my_modal_m").showModal();
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPencil} className="w-5" />
+                      </button>
+                    </Link>
                     <button
                       className="hover:bg-gray-100 rounded-md border p-2  text-danger"
                       onClick={() => {
@@ -237,15 +242,13 @@ export default function DataTable({
                         <span className="sr-only">View</span>
                         <FontAwesomeIcon icon={faEye} className="w-5" />
                       </button>
-                      <button
-                        className="hover:bg-gray-100 rounded-md border p-2  text-warning"
-                        onClick={() => {
-                          setSelectedPId(item.PieceId);
-                          // document.getElementById("my_modal_m").showModal();
-                        }}
+                      <Link
+                        href={`/home/modification/egaree?pieceid=${item.PieceID}&Did=${item.id}`}
                       >
-                        <FontAwesomeIcon icon={faPencil} className="w-5" />
-                      </button>
+                        <button className="hover:bg-gray-100 rounded-md border p-2  text-warning">
+                          <FontAwesomeIcon icon={faPencil} className="w-5" />
+                        </button>
+                      </Link>
                       <button
                         className="hover:bg-gray-100 rounded-md border p-2  text-danger"
                         onClick={() => {

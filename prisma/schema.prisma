@@ -88,7 +88,7 @@ model Declaration{
   id String   @id @default(auto()) @map("_id") @db.ObjectId
   type            TypeDeclaration
   categorie String
-  date DateTime 
+  date String 
   arrondissement String
   lieu_de_depot String?
   photo String ?

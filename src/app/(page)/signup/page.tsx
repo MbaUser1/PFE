@@ -77,7 +77,7 @@ const SignupPage = () => {
 
   return (
     <>
-      <section className="relative z-10 overflow-hidden pb-16 pt-36  dark:bg-[#181c24] md:pb-20  lg:pb-28 lg:pt-[180px]">
+      <section className="relative z-10 overflow-hidden bg-[#f4f6f6] pb-16  pt-36 dark:bg-[#181c24] md:pb-20  lg:pb-28 lg:pt-[180px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">

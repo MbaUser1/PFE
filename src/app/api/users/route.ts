@@ -67,6 +67,7 @@ export async function POST(request: Request) {
         telephone,
         motDePasseHache: hashedPassword,
         sexe,
+        image: null,
         otp,
       },
     });

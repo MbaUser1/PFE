@@ -9,6 +9,7 @@ import {
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { getSession, signOut } from "next-auth/react";
 
 interface DropdownUserProps {
   nom: string;
@@ -23,7 +24,6 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
   role,
   img,
 }) => {
-  const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // const handleLogout = async () => {
@@ -65,6 +65,17 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+  const router = useRouter();
+  const handleLogout = async () => {
+    const data = await signOut({ redirect: false, callbackUrl: "/" });
+    if (!data) {
+      console.error("Déconnexion échouée");
+    } else {
+      // Vérifie que le router est disponible avant de faire la redirection
+      router.push("/");
+      console.error("Déconnexion");
+    }
+  };
 
   return (
     <div className="relative">
@@ -119,6 +130,7 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
         <button
           // onClick={handleLogout}
           className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
         >
           <FontAwesomeIcon
             icon={faSignOutAlt}

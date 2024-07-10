@@ -5,7 +5,7 @@ const Accueil = () => {
     <>
       <section
         id="home"
-        className="relative z-10 min-h-screen overflow-hidden bg-white pb-16 pt-[120px] dark:bg-black md:pb-[100px] md:pt-[150px] xl:pb-[140px] xl:pt-[180px] 2xl:pb-[180px] 2xl:pt-[210px]"
+        className="relative z-10 min-h-screen overflow-hidden bg-[#f4f6f6] pb-16 pt-[120px] dark:bg-black md:pb-[100px] md:pt-[150px] xl:pb-[140px] xl:pt-[180px] 2xl:pb-[180px] 2xl:pt-[210px]"
       >
         <div className="container">
           <div className="-mx-4 flex flex-wrap">

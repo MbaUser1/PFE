@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         data: {
           type: type as TypeDeclaration,
           categorie,
-          date: new Date(date),
+          date,
           arrondissement,
           circonstance,
           lieu_de_depot,
@@ -128,38 +128,65 @@ export async function GET(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const {
-      id,
+      idP,
+      idD,
+      nom,
+      prenom_p,
+      pnom_p,
+      mnom_p,
+      nee_le,
+      lieu_p,
       categorie,
-      date,
-      arrondissement,
-      lieu_de_depot,
-      photo,
       num_piece,
+      arrondissement,
+      date,
+      circonstance,
+      photo,
       cni,
-      userID,
+      lieu_de_depot,
     } = await request.json();
 
+    const updateDataD: any = {};
+    if (categorie) updateDataD.categorie = categorie;
+    if (date) updateDataD.date = date;
+    if (arrondissement) updateDataD.arrondissement = arrondissement;
+    if (lieu_de_depot) updateDataD.lieu_de_depot = lieu_de_depot;
+    if (circonstance) updateDataD.circonstance = circonstance;
+    if (photo) updateDataD.photo = photo;
+    if (num_piece) updateDataD.num_piece = num_piece;
+    if (cni) updateDataD.cni = cni;
+
     const updatedDeclaration = await prisma.declaration.update({
-      where: { id: String(id) },
-      data: {
-        categorie,
-        date: new Date(date),
-        arrondissement,
-        lieu_de_depot,
-        photo,
-        num_piece,
-        cni,
-        userID,
-      },
+      where: { id: String(idD) },
+      data: updateDataD,
     });
 
-    return NextResponse.json(
-      {
-        success: true,
-        data: updatedDeclaration,
-      },
-      { status: 200 },
-    );
+    const updateDataP: any = {};
+    if (categorie) {
+      updateDataP.categorie = {
+        connect: { id: categorie },
+      };
+      if (nom) updateDataP.nom = nom;
+      if (prenom_p) updateDataP.prenom = prenom_p;
+      if (num_piece) updateDataP.num_piece = num_piece;
+      if (pnom_p) updateDataP.nom_pere = pnom_p;
+      if (mnom_p) updateDataP.nom_mere = mnom_p;
+      if (nee_le) updateDataP.nee_le = nee_le;
+      if (lieu_p) updateDataP.lieu = lieu_p;
+
+      const updatedPiece = await prisma.piece.update({
+        where: { id: idP },
+        data: updateDataP,
+      });
+
+      return NextResponse.json(
+        {
+          success: true,
+          data: updatedDeclaration,
+        },
+        { status: 200 },
+      );
+    }
   } catch (error) {
     console.error("Erreur lors de la mise à jour de la déclaration:", error);
     return NextResponse.json(

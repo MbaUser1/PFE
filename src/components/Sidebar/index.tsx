@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { getSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -69,6 +71,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       document.querySelector("body")?.classList.remove("sidebar-expanded");
     }
   }, [sidebarExpanded]);
+
+  const router = useRouter();
+  const handleLogout = async () => {
+    const data = await signOut({ redirect: false, callbackUrl: "/" });
+    if (!data) {
+      console.error("Déconnexion échouée");
+    } else {
+      // Vérifie que le router est disponible avant de faire la redirection
+      router.push("/");
+      console.error("Déconnexion");
+    }
+  };
 
   return (
     <aside
@@ -239,6 +253,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     className={
                       " group relative flex w-60 items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                     }
+                    onClick={handleLogout}
                   >
                     <FontAwesomeIcon
                       icon={faSignOutAlt}

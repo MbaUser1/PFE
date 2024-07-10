@@ -26,7 +26,7 @@ const AvisData: Aviss[] = [
     name: "Melong Handy",
     designation: "Utilisateur",
     content:
-      "Nos membres sont tellement impressionnés. C'est intuitif. C'est propre. C'est sans distraction. Si vous construisez une communauté.",
+      "Bravo pour cette réalisation ! Tout est pensé pour que l'utilisateur puisse se concentrer sur l'essentiel sans être distrait.",
     image: "/images/Avis/auteur3.jpeg",
     star: 5,
   },
