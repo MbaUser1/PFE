@@ -86,8 +86,9 @@ model Lieu_depot{
 
 model Declaration{
   id String   @id @default(auto()) @map("_id") @db.ObjectId
-  type            TypeDeclaration
-  categorie String
+  type            TypeDeclaration 
+  categorie1      Categorie @relation(fields: [categorie], references: [id])
+  categorie     String    @db.ObjectId
   date String 
   arrondissement String
   lieu_de_depot String?
@@ -107,6 +108,7 @@ model Categorie {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   nom             String
   Piece Piece[]
+  Declaration Declaration[]
 }
 model Piece {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId

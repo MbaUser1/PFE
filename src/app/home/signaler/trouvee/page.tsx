@@ -35,7 +35,7 @@ export default function AvatarUploadPage() {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const inputCategorieRef = useRef<HTMLSelectElement>(null);
   const inputDateRef = useRef<HTMLInputElement>(null);
-  const inputArrondRef = useRef<HTMLSelectElement>(null);
+  const inputArrondRef = useRef<HTMLInputElement>(null);
   const inputNpieceRef = useRef<HTMLInputElement>(null);
   const inputCniRef = useRef<HTMLInputElement>(null);
   const inputLieuRef = useRef<HTMLSelectElement>(null);
@@ -117,7 +117,7 @@ export default function AvatarUploadPage() {
         toast.success("Déclaration créée avec succès");
         setLoading(false);
         reset();
-        router.push("/pieces/trouvees");
+        router.push("/home/pieces/trouvees");
         const newBlob = await response.json();
         setBlob(newBlob);
       }
@@ -188,7 +188,7 @@ export default function AvatarUploadPage() {
                     Où avez-vous trouvé ??{" "}
                     <span className="text-meta-1">*</span>
                   </label>
-                  <select
+                  {/* <select
                     required
                     name="arrondissement"
                     id=""
@@ -200,7 +200,15 @@ export default function AvatarUploadPage() {
                         {option.label}
                       </option>
                     ))}
-                  </select>
+
+                  </select> */}
+                  <input
+                    name="inputArrondRef"
+                    ref={inputArrondRef}
+                    type="text"
+                    required
+                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-2.5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
                 </div>
 
                 <div className="w-full xl:w-1/2">

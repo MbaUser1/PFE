@@ -4,15 +4,14 @@ import { useState } from "react";
 
 export default function Modal({
   id,
-  idP,
+
   onDelete,
 }: {
   id: string;
-  idP: string;
-  onDelete: (id: string, idP: string) => void;
+  onDelete: (id: string) => void;
 }) {
   const handleDeleteAndClose = () => {
-    onDelete(id, idP);
+    onDelete(id);
     const modal = document.getElementById(
       "my_modal_delete",
     ) as HTMLDialogElement;

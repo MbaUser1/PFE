@@ -96,7 +96,7 @@ const FormLayout = () => {
         toast.success("Déclaration créée avec succès");
         reset();
 
-        // router.push("/pieces/egarees");
+        router.push("/home/pieces/egarees");
       } else {
         setLoading(false);
         toast.error(

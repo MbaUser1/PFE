@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       const newDeclaration = await prisma.declaration.create({
         data: {
           type: type as TypeDeclaration,
-          categorie,
+          categorie1: { connect: { id: categorie } },
           date,
           arrondissement,
           circonstance,
@@ -102,6 +102,9 @@ export async function GET(request: NextRequest) {
   try {
     const declarations = await prisma.declaration.findMany({
       where: { type: type as TypeDeclaration, userID: Uid },
+      include: {
+        categorie1: true, // Inclure les informations de la catégorie
+      },
     });
 
     return NextResponse.json(
@@ -147,25 +150,28 @@ export async function PUT(request: NextRequest) {
     } = await request.json();
 
     const updateDataD: any = {};
-    if (categorie) updateDataD.categorie = categorie;
-    if (date) updateDataD.date = date;
-    if (arrondissement) updateDataD.arrondissement = arrondissement;
-    if (lieu_de_depot) updateDataD.lieu_de_depot = lieu_de_depot;
-    if (circonstance) updateDataD.circonstance = circonstance;
-    if (photo) updateDataD.photo = photo;
-    if (num_piece) updateDataD.num_piece = num_piece;
-    if (cni) updateDataD.cni = cni;
-
-    const updatedDeclaration = await prisma.declaration.update({
-      where: { id: String(idD) },
-      data: updateDataD,
-    });
-
-    const updateDataP: any = {};
     if (categorie) {
+      updateDataD.categorie1 = {
+        connect: { id: categorie },
+      };
+      if (date) updateDataD.date = date;
+      if (arrondissement) updateDataD.arrondissement = arrondissement;
+      if (lieu_de_depot) updateDataD.lieu_de_depot = lieu_de_depot;
+      if (circonstance) updateDataD.circonstance = circonstance;
+      if (photo) updateDataD.photo = photo;
+      if (num_piece) updateDataD.num_piece = num_piece;
+      if (cni) updateDataD.cni = cni;
+
+      const updatedDeclaration = await prisma.declaration.update({
+        where: { id: String(idD) },
+        data: updateDataD,
+      });
+
+      const updateDataP: any = {};
       updateDataP.categorie = {
         connect: { id: categorie },
       };
+
       if (nom) updateDataP.nom = nom;
       if (prenom_p) updateDataP.prenom = prenom_p;
       if (num_piece) updateDataP.num_piece = num_piece;
@@ -204,9 +210,8 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  const idP = searchParams.get("idP");
 
-  if (!id || !idP) {
+  if (!id) {
     return NextResponse.json(
       {
         success: false,
@@ -216,13 +221,16 @@ export async function DELETE(request: NextRequest) {
     );
   }
   try {
+    const declarations = await prisma.declaration.findUnique({
+      where: { id: id },
+    });
     await prisma.declaration.delete({
       where: { id: id },
     });
 
     try {
       await prisma.piece.delete({
-        where: { id: idP },
+        where: { id: declarations?.PieceID },
       });
       return NextResponse.json(
         {

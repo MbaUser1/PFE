@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
         const newDeclaration = await prisma.declaration.create({
           data: {
             type: type,
-            categorie: categ,
+            categorie1: { connect: { id: categ } },
             date,
             arrondissement: arrond,
             lieu_de_depot: lieu,
