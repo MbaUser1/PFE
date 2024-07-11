@@ -25,13 +25,7 @@ import { Create } from "@/components/Datatable/buttons";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
-export default function InvoicesTable({
-  query,
-  currentPage,
-}: {
-  query: string;
-  currentPage: number;
-}) {
+export default function InvoicesTable() {
   interface piece {
     id: string;
     photo: string;
@@ -78,7 +72,7 @@ export default function InvoicesTable({
     }
 
     fetchData();
-  }, [query, currentPage, session?.user?.id]);
+  }, [session?.user?.id]);
 
   useEffect(() => {
     async function fetchData() {
