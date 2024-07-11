@@ -311,7 +311,7 @@ export default function InvoicesTable() {
                                 "my_modal_delete",
                               ) as HTMLDialogElement | null;
                               if (modalElement) {
-                                modalElement.close();
+                                modalElement.showModal();
                               } else {
                                 console.error(
                                   "Element with id 'my_modal_delete' not found.",
