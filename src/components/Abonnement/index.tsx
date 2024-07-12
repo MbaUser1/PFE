@@ -64,7 +64,7 @@ const Abonnement = () => {
           <div className="grid  gap-x-8 gap-y-10 ">
             <PricingBox
               packageName="👑"
-              price={isMonthly ? "1000" : "12 000"}
+              price={isMonthly ? "1000" : "10 000"}
               duration={isMonthly ? "mois" : "an"}
               subtitle="Bénéficier des notifications en temps réel."
             >

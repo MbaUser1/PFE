@@ -40,6 +40,8 @@ export default function InvoicesTable() {
     id: string | null;
     onDelete: (id: string) => void;
   }
+  interface ModalSeeProps {}
+
   const [invoices, setInvoices] = useState<piece[]>([]);
   const [piece, setPiece] = useState<piece[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -151,9 +153,23 @@ export default function InvoicesTable() {
     );
   };
 
+  const Modal: React.FC<ModalSeeProps> = ({ piece }) => {
+    return (
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="text-lg font-bold">Confirmer la suppression</h3>
+          <p className="py-4">
+            Êtes-vous sûr de vouloir supprimer cette déclaration ?
+          </p>
+          <div className="modal-action"></div>
+        </div>
+      </dialog>
+    );
+  };
+
   return (
     <>
-      {/* <Modal piece={piece} />  */}
+      <Modal piece={piece} />
       <Modal_delete id={selectedId} onDelete={handleDelete} />
       <Breadcrumb pageName="Documents Egarées" />
       <div className="w-full">
@@ -199,10 +215,20 @@ export default function InvoicesTable() {
                       <div className="flex justify-end gap-2">
                         <button
                           className="hover:bg-gray-100 rounded-md border p-2 text-success"
-                          // onClick={() => {
-                          //   setSelectedPId(invoice.PieceID);
-                          //   document.getElementById("my_modal_2").showModal();
-                          // }}
+                          onClick={() => {
+                            setSelectedPId(invoice.PieceID);
+                            //   document.getElementById("my_modal_2").showModal();
+                            const modalElement = document.getElementById(
+                              "my_modal_2",
+                            ) as HTMLDialogElement | null;
+                            if (modalElement) {
+                              modalElement.showModal();
+                            } else {
+                              console.error(
+                                "Element with id 'my_modal_delete' not found.",
+                              );
+                            }
+                          }}
                         >
                           <span className="sr-only">View</span>
                           <FontAwesomeIcon icon={faEye} className="w-5" />

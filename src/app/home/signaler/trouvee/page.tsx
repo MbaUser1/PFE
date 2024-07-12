@@ -235,9 +235,6 @@ export default function AvatarUploadPage() {
                     ref={inputLieuRef}
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-4 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   >
-                    <option key="">
-                      Selectionnez un lieu où déposer le document{" "}
-                    </option>
                     {Pdepot.map((option) => (
                       <option key={option.id} value={option.id}>
                         {option.nom}

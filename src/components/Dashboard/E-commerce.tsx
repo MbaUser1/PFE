@@ -27,12 +27,7 @@ const ECommerce: React.FC = () => {
     <>
       <Breadcrumb pageName="Dashboard" />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-2 2xl:gap-7.5">
-        <CardDataStats
-          title="Total Documents"
-          total="$3.456K"
-          rate="0.43%"
-          levelUp
-        >
+        <CardDataStats title="Total Documents" total="00" rate="0.00%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -51,7 +46,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Egaré" total="$45,2K" rate="4.35%" levelUp>
+        <CardDataStats title="Total Egaré" total="00" rate="0.00%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -74,7 +69,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Trouvé" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats title="Total Trouvé" total="00" rate="0.00%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -94,9 +89,9 @@ const ECommerce: React.FC = () => {
           </svg>
         </CardDataStats>
         <CardDataStats
-          title="Vos Documents recupéres"
-          total="3.456"
-          rate="0.95%"
+          title="Vos Documents Deposés"
+          total="00"
+          rate="0.00%"
           levelDown
         >
           <svg

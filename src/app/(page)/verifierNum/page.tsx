@@ -60,7 +60,7 @@ const OtpForm = () => {
               htmlFor="otp"
               className="text-gray-700 block text-sm font-medium"
             >
-              Code OTP
+              Entrez le code OTP reçu par SMS
             </label>
             <input
               type="text"
